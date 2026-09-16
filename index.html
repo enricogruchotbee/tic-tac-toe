@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- Dit vertelt de browser dat dit een moderne HTML5-pagina is -->
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <!-- Zorgt dat speciale tekens (zoals é, ë) goed getoond worden -->
+    <title>Tic Tac Toe</title>
+    <!-- De titel die bovenin het browsertabblad komt te staan -->
+
+    <!-- Hier koppelen we ons CSS-bestand, zodat de opmaak/styling wordt toegepast -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Titel van het spel, zichtbaar boven het bord -->
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Dit is de container van het hele speelbord -->
+    <!-- We geven het een id, zodat we het straks makkelijk kunnen vinden in CSS en JavaScript -->
+    <div id="board">
+
+        <!-- Elk vakje van het bord is een aparte div -->
+        <!-- De class "cell" gebruiken we om ze allemaal hetzelfde te stylen -->
+        <!-- data-index geeft elk vakje een uniek nummer (0 t/m 8), dat we straks nodig hebben in JavaScript -->
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+
+    </div>
+
+    <!-- Hier koppelen we ons JavaScript-bestand -->
+    <!-- We zetten dit onderaan de body, zodat de HTML eerst geladen is voordat het script draait -->
+    <script src="script.js"></script>
+</body>
+</html>

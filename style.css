@@ -1,0 +1,66 @@
+/* ======================================== */
+/* GLOBAL / BODY STYLING                     */
+/* Basisopmaak die voor de hele pagina geldt */
+/* ======================================== */
+
+/* Dit stukje CSS regelt de basis-opmaak van de hele pagina */
+body {
+    /* Centreert alle inhoud horizontaal op de pagina */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* Geeft wat ruimte bovenaan de pagina, zodat het niet tegen de rand aan plakt */
+    margin-top: 40px;
+
+    /* Kiest een simpel, leesbaar lettertype */
+    font-family: Arial, sans-serif;
+}
+
+/* ======================================== */
+/* BOARD (SPEELBORD) STYLING                 */
+/* Zet de 9 vakjes om in een 3x3 raster      */
+/* ======================================== */
+
+/* Dit stukje CSS zet de 9 losse vakjes om in een net vierkant raster van 3 bij 3 */
+#board {
+    /* CSS Grid is een systeem om dingen in rijen en kolommen te zetten */
+    display: grid;
+
+    /* Dit maakt 3 kolommen, elk even breed (100px) */
+    grid-template-columns: repeat(3, 100px);
+
+    /* Dit maakt 3 rijen, elk even hoog (100px) */
+    grid-template-rows: repeat(3, 100px);
+
+    /* Kleine ruimte tussen de vakjes, zodat je de randen goed ziet */
+    gap: 5px;
+
+    /* Geeft wat ruimte tussen de titel en het bord */
+    margin-top: 20px;
+}
+
+/* ======================================== */
+/* CELL (VAKJE) STYLING                      */
+/* Uiterlijk van elk individueel vakje       */
+/* ======================================== */
+
+/* Dit stukje CSS geeft elk los vakje (cell) een zichtbare rand en achtergrondkleur */
+.cell {
+    /* Een dunne, donkere rand rondom elk vakje, zodat je de vakjes van elkaar kan onderscheiden */
+    border: 2px solid #333;
+
+    /* Een lichte achtergrondkleur, zodat het vakje duidelijk zichtbaar is */
+    background-color: #f0f0f0;
+
+    /* Zorgt dat de muiscursor verandert in een handje bij het hoveren, als hint dat je erop kan klikken */
+    cursor: pointer;
+
+    /* Grote lettergrootte, straks nodig voor de X en O die we erin gaan zetten */
+    font-size: 48px;
+
+    /* Zet de tekst (straks X of O) verticaal en horizontaal in het midden van het vakje */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
