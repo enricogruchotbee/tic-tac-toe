@@ -64,3 +64,35 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* ======================================== */
+/* RESET BUTTON STYLING                      */
+/* Uiterlijk van de "Opnieuw spelen"-knop    */
+/* ======================================== */
+
+/* Dit stukje CSS geeft de resetknop een nette, klikbare uitstraling */
+#reset-button {
+    /* Ruimte tussen het bord en de knop */
+    margin-top: 20px;
+
+    /* Ruimte binnenin de knop, zodat de tekst niet strak tegen de rand zit */
+    padding: 10px 20px;
+
+    /* Grootte van de tekst in de knop */
+    font-size: 18px;
+
+    /* Zorgt dat de muiscursor een handje wordt bij het hoveren, als klik-hint */
+    cursor: pointer;
+
+    /* Een simpele, effen rand rondom de knop */
+    border: 2px solid #333;
+
+    /* Lichte achtergrondkleur, passend bij de vakjes van het bord */
+    background-color: #f0f0f0;
+}
+
+/* Dit stukje CSS regelt hoe de knop eruitziet ZODRA je eroverheen hovert met de muis */
+#reset-button:hover {
+    /* Iets donkerder grijs bij hoveren, als visuele feedback dat de knop reageert */
+    background-color: #ddd;
+}
