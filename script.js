@@ -1,7 +1,7 @@
-/* ======================================== */
-/* VARIABELEN                                */
+/* ========================================== */
+/* VARIABELEN                                 */
 /* Belangrijke gegevens die het spel bijhoudt */
-/* ======================================== */
+/* ========================================== */
 
 // Dit haalt ALLE elementen op met class "cell" (dus alle 9 vakjes)
 // Het resultaat is een soort lijst (NodeList) van alle vakjes
@@ -33,8 +33,8 @@ const winningCombinations = [
 ];
 
 /* ======================================== */
-/* WINNAAR CHECKEN                           */
-/* Controleert of iemand 3 op een rij heeft  */
+/* WINNAAR CHECKEN                          */
+/* Controleert of iemand 3 op een rij heeft */
 /* ======================================== */
 
 // Deze functie controleert of er een winnaar is
@@ -54,7 +54,8 @@ function checkWinner() {
         // Als alle 3 dezelfde letter bevatten, EN die letter is niet leeg,
         // dan hebben we een winnaar gevonden
         if (a !== "" && a === b && b === c) {
-            return a; // geeft "X" of "O" terug
+            // winnende X of O en de winnende lijn
+            return {player: a, combo: combo};
         }
     }
 
@@ -77,10 +78,10 @@ function isBoardFull() {
     return true;
 }
 
-/* ======================================== */
-/* KLIK-DETECTIE EN SPELERBEURT              */
+/* ========================================== */
+/* KLIK-DETECTIE EN SPELERBEURT               */
 /* Reageert op een klik en zet de X of O neer */
-/* ======================================== */
+/* ========================================== */
 
 cells.forEach(function (cell) {
     cell.addEventListener("click", function () {
@@ -99,18 +100,24 @@ cells.forEach(function (cell) {
         cell.textContent = currentPlayer;
 
         // Controleer na deze zet of er een winnaar is
-        const winner = checkWinner();
+        const result = checkWinner();
 
         // als er een winnaar is, toon dat dan met een simpele melding
-        if (winner !== null) {
+        if (result !== null) {
             // Er is een winnaar: zet gameOver op true, zodat er niet meer geklikt kan worden
             gameOver = true;
+
+            // loop door de winnende combinatie en voeg class "winning-cell" toe
+            // aan elk van die 3 vakjes, zodat de CSS-styling wordt toegepast
+            result.combo.forEach(function (index) {
+                cells[index].classList.add("winning-cell");
+            });
 
             // We gebruiken setTimeout om de browser eerst de tijd te geven
             // om de laatste X/O op het scherm te tekenen, VOORDAT de alert verschijnt
             // We geven de browser nu 200 milliseconden (0,2 seconden) de tijd
             setTimeout(function () {
-                alert("Speler " + winner + " heeft gewonnen!");
+                alert("Speler " + player.result + " heeft gewonnen!");
             }, 200);
             } else if (isBoardFull()) {
             // Geen winnaar, maar het bord is wel vol: gelijkspel
@@ -127,8 +134,8 @@ cells.forEach(function (cell) {
 });
 
 /* ======================================== */
-/* RESET / OPNIEUW SPELEN                    */
-/* Zet het spel terug naar de beginstand     */
+/* RESET / OPNIEUW SPELEN                   */
+/* Zet het spel terug naar de beginstand    */
 /* ======================================== */
 
 // Dit zoekt de resetknop op via zijn id, zodat we ernaar kunnen luisteren
@@ -139,6 +146,9 @@ resetButton.addEventListener("click", function () {
     // Loop door elk vakje heen en maak de tekst-inhoud weer leeg
     cells.forEach(function (cell) {
         cell.textContent = "";
+    
+        // verwijder de "winning-cell" class weer, zodat een nieuw potje er weer normaal uitziet
+        cell.classList.remove("winning-cell");
     });
 
     // Zet de speler weer terug op "X" (die begint altijd als eerste)

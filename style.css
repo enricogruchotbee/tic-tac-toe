@@ -1,7 +1,7 @@
-/* ======================================== */
+/* ========================================= */
 /* GLOBAL / BODY STYLING                     */
 /* Basisopmaak die voor de hele pagina geldt */
-/* ======================================== */
+/* ========================================= */
 
 /* Dit stukje CSS regelt de basis-opmaak van de hele pagina */
 body {
@@ -15,11 +15,94 @@ body {
 
     /* Kiest een simpel, leesbaar lettertype */
     font-family: Arial, sans-serif;
+
+    /* Position nodig voor watermerk */
+    position: relative;
+
+    /* Lichtgrijze pagina-achtergrond */
+    background-color: #f2f2f2;
+
+    /* Zorgt dat de pagina minstens de volledige schermhoogte vult, */
+    /* zodat de achtergrondkleur en het watermerk overal zichtbaar zijn */
+    min-height: 100vh;
+
+    /* Donkergrijze pagina-achtergrond in plaats van wit */
+    background-color: #2b2b2b;
+
+    overflow: hidden;
+}
+
+/* ========================================= */
+/* TITEL (H1) STYLING                        */
+/* De "Tic Tac Toe" titel bovenaan de pagina */
+/* ========================================= */
+
+h1 {
+    /* Fluorescerend geel, passend bij het thema */
+    color: #DFFF00;
+
+    /* Blauwe contourlijn om de letters, zoals we ook bij X/O deden */
+    -webkit-text-stroke: 1.5px #0047AB;
+
+    /* Responsieve grootte: past mee met schermbreedte, tussen 32px en 64px */
+    font-size: clamp(32px, 6vw, 64px);
+
+    /* Verwijdert de standaard, vaak ongelijke ruimte die een <h1> van zichzelf heeft */
+    margin: 0 0 10px 0;
+
+    /* Zorgt dat lange titels niet raar afbreken op een heel smal scherm */
+    text-align: center;
+}
+
+/* Dit ::before element "tekent" het grote "46"-cijfer als watermerk */
+/* Het bestaat niet echt in de HTML - CSS maakt het er zelf bij */
+body::before {
+    /* content is verplicht bij ::before - dit is de tekst die getoond wordt */
+    content: "46";
+
+    /* Plaatst het watermerk los van de normale pagina-inhoud, */
+    /* zodat het niet de layout van je bord/knop verstoort */
+    position: absolute;
+
+    /* Centreert het watermerk grofweg in het midden van de pagina */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* clamp(minimum, voorkeurswaarde, maximum) */
+    /* Dit betekent: gebruik 60% van de schermbreedte (60vw) als basis, */
+    /* maar nooit kleiner dan 300px en nooit groter dan 900px */
+    /* Zo blijft het cijfer op mobiel behapbaar, en op desktop lekker groot */
+    font-size: clamp(300px, 60vw, 900px);
+
+    /* Extra dik lettertype */
+    font-weight: 900;
+
+    /* Blauwe kleur, passend bij het VR46-thema */
+    color: #0047AB;
+
+    /* Dit tekent een gele "outline" (rand) rondom elke letter/cijfer */
+    /* De eerste waarde (6px) is de dikte van de rand, de tweede de kleur */
+    -webkit-text-stroke: 6px #DFFF00;
+
+    /* Dit maakt het watermerk transparant/vervaagd, zodat het niet afleidt */
+    /* 0 = onzichtbaar, 1 = volledig zichtbaar - 0.25 is subtiel */
+    opacity: 0.25;
+
+    /* Een lichte blur (vervaging), voor een nog zachter effect */
+    filter: blur(2px);
+
+    /* Zorgt dat het watermerk NOOIT boven het bord of de knop komt te liggen */
+    z-index: -1;
+
+    /* Voorkomt dat het cijfer buiten het scherm voor een horizontale scrollbalk zorgt */
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 /* ======================================== */
-/* BOARD (SPEELBORD) STYLING                 */
-/* Zet de 9 vakjes om in een 3x3 raster      */
+/* BOARD (SPEELBORD) STYLING                */
+/* Zet de 9 vakjes om in een 3x3 raster     */
 /* ======================================== */
 
 /* Dit stukje CSS zet de 9 losse vakjes om in een net vierkant raster van 3 bij 3 */
@@ -27,72 +110,107 @@ body {
     /* CSS Grid is een systeem om dingen in rijen en kolommen te zetten */
     display: grid;
 
-    /* Dit maakt 3 kolommen, elk even breed (100px) */
-    grid-template-columns: repeat(3, 100px);
+    /* Dit maakt 3 kolommen, elk even breed (130px) */
+    grid-template-columns: repeat(3, 130px);
 
-    /* Dit maakt 3 rijen, elk even hoog (100px) */
-    grid-template-rows: repeat(3, 100px);
+    /* Dit maakt 3 rijen, elk even hoog (130px) */
+    grid-template-rows: repeat(3, 130px);
 
     /* Kleine ruimte tussen de vakjes, zodat je de randen goed ziet */
     gap: 5px;
 
     /* Geeft wat ruimte tussen de titel en het bord */
     margin-top: 20px;
+
+    /* Blauwe achtergrond achter het bord, wordt zichtbaar als lijnen tussen de vakjes */
+    background-color: #0047AB;
+    padding: 5px;
 }
 
 /* ======================================== */
-/* CELL (VAKJE) STYLING                      */
-/* Uiterlijk van elk individueel vakje       */
+/* CELL (VAKJE) STYLING                     */
+/* Uiterlijk van elk individueel vakje      */
 /* ======================================== */
 
 /* Dit stukje CSS geeft elk los vakje (cell) een zichtbare rand en achtergrondkleur */
 .cell {
-    /* Een dunne, donkere rand rondom elk vakje, zodat je de vakjes van elkaar kan onderscheiden */
-    border: 2px solid #333;
+    /* geen border om de vakjes */
+    border: none;
 
-    /* Een lichte achtergrondkleur, zodat het vakje duidelijk zichtbaar is */
-    background-color: #f0f0f0;
-
-    /* Zorgt dat de muiscursor verandert in een handje bij het hoveren, als hint dat je erop kan klikken */
+    /* Lichtgrijze vakjes, rustiger dan het eerdere felgeel */
+    background-color: #d9d9d9;
     cursor: pointer;
+    font-size: 72px;
+    font-weight: 900;
 
-    /* Grote lettergrootte, straks nodig voor de X en O die we erin gaan zetten */
-    font-size: 48px;
+    /* De X/O zelf wordt fluorescerend geel */
+    color: #DFFF00;
+
+    /* Blauwe rand/contour rondom de letter zelf (X of O), niet rondom het vakje */
+    -webkit-text-stroke: 2px #0047AB;
+
 
     /* Zet de tekst (straks X of O) verticaal en horizontaal in het midden van het vakje */
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.2s;
+}
+
+/* Iets donkerder grijs bij hoveren over een leeg vakje */
+.cell:hover {
+    background-color: #bfbfbf;
 }
 
 /* ======================================== */
-/* RESET BUTTON STYLING                      */
-/* Uiterlijk van de "Opnieuw spelen"-knop    */
+/* RESET BUTTON STYLING                     */
+/* Uiterlijk van de "Opnieuw spelen"-knop   */
 /* ======================================== */
 
 /* Dit stukje CSS geeft de resetknop een nette, klikbare uitstraling */
 #reset-button {
     /* Ruimte tussen het bord en de knop */
-    margin-top: 20px;
+    margin-top: 25px;
 
     /* Ruimte binnenin de knop, zodat de tekst niet strak tegen de rand zit */
-    padding: 10px 20px;
+    padding: 12px 28px;
 
     /* Grootte van de tekst in de knop */
-    font-size: 18px;
+    font-size: 20px;
 
     /* Zorgt dat de muiscursor een handje wordt bij het hoveren, als klik-hint */
     cursor: pointer;
 
-    /* Een simpele, effen rand rondom de knop */
-    border: 2px solid #333;
-
-    /* Lichte achtergrondkleur, passend bij de vakjes van het bord */
-    background-color: #f0f0f0;
+    /* Zelfde thema: geel met blauwe rand */
+    background-color: #DFFF00;
+    color: #0047AB;
+    border: 3px solid #0047AB;
 }
 
 /* Dit stukje CSS regelt hoe de knop eruitziet ZODRA je eroverheen hovert met de muis */
 #reset-button:hover {
-    /* Iets donkerder grijs bij hoveren, als visuele feedback dat de knop reageert */
-    background-color: #ddd;
+    /* Bij hoveren draaien we de kleuren om: blauw met gele tekst */
+    background-color: #0047AB;
+    color: #DFFF00;
+}
+
+/* ========================================== */
+/* WINNENDE LIJN STYLING                      */
+/* Opvallende stijl voor de 3 winnende vakjes */
+/* ========================================== */
+
+/* Deze class wordt straks door JavaScript toegevoegd aan de 3 winnende vakjes */
+.winning-cell {
+    /* Felgele achtergrond in plaats van het normale lichtgrijs */
+    background-color: #DFFF00;
+
+    /* Dikke blauwe rand, om het extra te laten opvallen */
+    outline: 4px solid #0047AB;
+
+    /* De letter zelf (X of O) wordt nu blauw in plaats van geel, */
+    /* zodat hij goed zichtbaar blijft tegen de nieuwe gele achtergrond */
+    color: #0047AB;
+
+    /* De contourlijn om de letter wordt nu geel (omgekeerd van normaal) */
+    -webkit-text-stroke: 2px #DFFF00;
 }
